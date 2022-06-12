@@ -41,6 +41,7 @@ public class Main {
 // now flit the pair RDD with long,string
         JavaPairRDD<Long, String> flippedValueTOKeyRDD = stringLongJavaPairRDD1.mapToPair(tuple -> new Tuple2<>(tuple._2, tuple._1));
         JavaPairRDD<Long, String> sortedKeyRDD1 = flippedValueTOKeyRDD.sortByKey(false);
+        System.out.println("printing number of default partitionin my machine "+sortedKeyRDD1.getNumPartitions());// no of default internally partiton is 2
         List<Tuple2<Long,String>> takenDataList = sortedKeyRDD1.take(50);// if we want small amount of data by specify number those num of data it will fetch .
         takenDataList.forEach(System.out::println);
         //JavaRDD<Integer> originalRDD = sc.parallelize(inputData);
