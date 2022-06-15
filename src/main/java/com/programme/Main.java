@@ -24,10 +24,16 @@ public class Main {
 //        inputData.add(20);
 //        inputData.add(30);
 //        inputData.add(40);
-
+//basically we configured hadoop here to run in local mode.
+     //   as * in saying that run this prohramme with multithread as it is available under the system capabilty and cores availabilty.
+       // but when we deploy this in hadoop cluster which might be aws cluster server , if this will local then it will only leaverage the master(which is driver) node and rest of
+        //its child node or worker node( called as executive node) will sitting idle. remove setmaster() while deployinh in cluster env
         SparkConf conf = new SparkConf().setAppName("startingSpark").setMaster("local[*]");
         JavaSparkContext sc= new JavaSparkContext(conf);
 
+        //the problem here now reading this text file from local but when we deploy this on cluster then it will not avialble on cluster
+        //if it is running onlocal it willassume that it is path of file  as assumption by spark architectural design
+        //either it will be hadoop file system file(hdfs) or s3 bucket file. then add here pass s3 bucket or hadfs file path as absolute.
         JavaRDD<String> inputStringJavaRDD = sc.textFile("src/main/resources/subtitles/input.txt");
         JavaRDD<String> map = inputStringJavaRDD.map(sentence -> sentence.replaceAll("[^a-zA-Z\\s]", "").toLowerCase())//it will replace all chracter except a-z-Az and space
                                                 .filter(sentence -> sentence.trim().length()>1)//it will remove space tabs and only allow sentence have length >1
