@@ -14,6 +14,7 @@ import scala.Tuple2$;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 @Slf4j
 public class Main {
@@ -68,6 +69,8 @@ public class Main {
 //        JavaRDD<Double> sqrtRDD = rdd.map(Math::sqrt);
 //        sqrtRDD.foreach(value->System.out.println(value));
 //        System.out.println(reduceData);
+        Scanner sc1 = new Scanner(System.in);
+        sc1.nextLine();
         sc.close();
     }
 }
